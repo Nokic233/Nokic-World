@@ -6,10 +6,10 @@ import vue from '@vitejs/plugin-vue'
 // https://vite.dev/config/
 export default defineConfig({
     // assetsInclude: ['**/*.gltf'],
-    base:'/Nokic-World.git/',
-    build: {
-        outDir: 'docs',
-    },
+    base: '/Nokic-World.git/',
+    // build: {
+    //     outDir: 'docs',
+    // },
     plugins: [vue()],
     resolve: {
         alias: {
