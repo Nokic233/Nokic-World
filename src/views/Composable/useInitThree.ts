@@ -38,7 +38,7 @@ export default function useInitThree() {
 
     const master = ref<THREE.Group<THREE.Object3DEventMap>>()
     const loader = new GLTFLoader()
-    loader.load('/model/shiba/scene.gltf', gltf => {
+    loader.load(`public/model/shiba/scene.gltf`, gltf => {
         scene.add((master.value = gltf.scene))
         master.value.rotation.y = Math.PI / 6
         // AxesHelper 显示模型的坐标轴

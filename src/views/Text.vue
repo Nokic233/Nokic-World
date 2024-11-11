@@ -35,9 +35,9 @@ function init() {
 
     const textureLoader = new THREE.TextureLoader()
     const matcapTextureArr = [
-        textureLoader.load('/textures/matcaps1.png'),
-        textureLoader.load('/textures/matcaps2.png'),
-        textureLoader.load('/textures/matcaps3.png'),
+        textureLoader.load('public/textures/matcaps1.png'),
+        textureLoader.load('public/textures/matcaps2.png'),
+        textureLoader.load('public/textures/matcaps3.png'),
     ]
     const matcapMaterial = new THREE.MeshMatcapMaterial({
         matcap: matcapTextureArr[0],
@@ -64,7 +64,7 @@ function init() {
     camera.position.set(0, 1, 4)
 
     const fontLoader = new FontLoader()
-    fontLoader.load('/fonts/helvetiker_regular.typeface.json', font => {
+    fontLoader.load(`public/fonts/helvetiker_regular.typeface.json`, font => {
         const textGeometry = new TextGeometry('Welcome to Nokic World !', {
             font,
             size: 0.5,
