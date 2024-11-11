@@ -1,6 +1,5 @@
 import { ref } from 'vue'
 import * as THREE from 'three'
-import masterGltf from '@/model/shiba/scene.gltf'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 // 初始化 Three.js 场景
 export default function useInitThree() {
@@ -39,7 +38,7 @@ export default function useInitThree() {
 
     const master = ref<THREE.Group<THREE.Object3DEventMap>>()
     const loader = new GLTFLoader()
-    loader.load(masterGltf, gltf => {
+    loader.load('/model/shiba/scene.gltf', gltf => {
         scene.add((master.value = gltf.scene))
         master.value.rotation.y = Math.PI / 6
         // AxesHelper 显示模型的坐标轴
