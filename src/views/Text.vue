@@ -9,7 +9,8 @@ import { TextGeometry } from 'three/addons/geometries/TextGeometry.js'
 import Stats from 'three/addons/libs/stats.module.js'
 
 const route = useRoute()
-const isDebug = computed(() => route.hash === '#debugger')
+// const isDebug = computed(() => route.hash === '#debugger')
+const isDebug = computed(() => true)
 const container = ref<HTMLDivElement>()
 const canvas = ref<HTMLCanvasElement>()
 
@@ -64,7 +65,7 @@ function init() {
 
     const fontLoader = new FontLoader()
     fontLoader.load('/fonts/helvetiker_regular.typeface.json', font => {
-        const textGeometry = new TextGeometry('Hello Three.js', {
+        const textGeometry = new TextGeometry('Welcome to Nokic World !', {
             font,
             size: 0.5,
             depth: 0.2,
