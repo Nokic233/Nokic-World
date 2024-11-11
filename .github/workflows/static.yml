@@ -42,5 +42,5 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.MY_CUSTOM_TOKEN }}
           folder: 'dist'  # 指定发布的目录
