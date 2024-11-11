@@ -6,6 +6,9 @@ import vue from '@vitejs/plugin-vue'
 // https://vite.dev/config/
 export default defineConfig({
     // assetsInclude: ['**/*.gltf'],
+    build: {
+        outDir: 'docs',
+    },
     plugins: [vue()],
     resolve: {
         alias: {
