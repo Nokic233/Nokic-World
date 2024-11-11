@@ -43,4 +43,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: 'main'
-          build_dir: 'dist'  # 指定发布的目录
+          folder: 'dist'  # 指定发布的目录
