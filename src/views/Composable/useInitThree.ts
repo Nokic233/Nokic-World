@@ -1,6 +1,8 @@
 import { ref } from 'vue'
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
+import { getBaseUrl } from '@/utils/index'
+
 // 初始化 Three.js 场景
 export default function useInitThree() {
     // 移动速度和按键状态
@@ -38,7 +40,7 @@ export default function useInitThree() {
 
     const master = ref<THREE.Group<THREE.Object3DEventMap>>()
     const loader = new GLTFLoader()
-    loader.load(`public/model/shiba/scene.gltf`, gltf => {
+    loader.load(getBaseUrl(`/model/shiba/scene.gltf`), gltf => {
         scene.add((master.value = gltf.scene))
         master.value.rotation.y = Math.PI / 6
         // AxesHelper 显示模型的坐标轴

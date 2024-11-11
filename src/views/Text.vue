@@ -6,6 +6,7 @@ import GUI from 'lil-gui'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { FontLoader } from 'three/addons/loaders/FontLoader.js'
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js'
+import { getBaseUrl } from '@/utils/index'
 import Stats from 'three/addons/libs/stats.module.js'
 
 const route = useRoute()
@@ -35,9 +36,9 @@ function init() {
 
     const textureLoader = new THREE.TextureLoader()
     const matcapTextureArr = [
-        textureLoader.load('public/textures/matcaps1.png'),
-        textureLoader.load('public/textures/matcaps2.png'),
-        textureLoader.load('public/textures/matcaps3.png'),
+        textureLoader.load(getBaseUrl(`/textures/matcaps1.png`)),
+        textureLoader.load(getBaseUrl(`/textures/matcaps2.png`)),
+        textureLoader.load(getBaseUrl(`/textures/matcaps3.png`)),
     ]
     const matcapMaterial = new THREE.MeshMatcapMaterial({
         matcap: matcapTextureArr[0],
@@ -64,23 +65,26 @@ function init() {
     camera.position.set(0, 1, 4)
 
     const fontLoader = new FontLoader()
-    fontLoader.load(`public/fonts/helvetiker_regular.typeface.json`, font => {
-        const textGeometry = new TextGeometry('Welcome to Nokic World !', {
-            font,
-            size: 0.5,
-            depth: 0.2,
-            curveSegments: 6,
-            bevelEnabled: true,
-            bevelThickness: 0.03,
-            bevelSize: 0.02,
-            bevelOffset: 0,
-            bevelSegments: 3,
-        })
-        // textGeometry.computeBoundingBox()
-        textGeometry.center()
-        const textMesh = new THREE.Mesh(textGeometry, matcapMaterial)
-        scene.add(textMesh)
-    })
+    fontLoader.load(
+        getBaseUrl(`/fonts/helvetiker_regular.typeface.json`),
+        font => {
+            const textGeometry = new TextGeometry('Welcome to Nokic World !', {
+                font,
+                size: 0.5,
+                depth: 0.2,
+                curveSegments: 6,
+                bevelEnabled: true,
+                bevelThickness: 0.03,
+                bevelSize: 0.02,
+                bevelOffset: 0,
+                bevelSegments: 3,
+            })
+            // textGeometry.computeBoundingBox()
+            textGeometry.center()
+            const textMesh = new THREE.Mesh(textGeometry, matcapMaterial)
+            scene.add(textMesh)
+        },
+    )
 
     // 批量甜甜圈
     const donutGeometry = new THREE.TorusGeometry(0.3, 0.1)
