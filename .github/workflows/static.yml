@@ -43,4 +43,5 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
         with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist  # 指定发布的目录
