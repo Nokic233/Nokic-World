@@ -40,8 +40,6 @@ jobs:
           npm install
           npm run build
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        uses: Cecilapp/GitHub-Pages-deploy@3.2.2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist  # 指定发布的目录
+          build_dir: ./dist  # 指定发布的目录
