@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, unref, onMounted, computed } from 'vue'
+import { ref, unref, onMounted, onBeforeUnmount, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import * as THREE from 'three'
 import GUI from 'lil-gui'
@@ -9,14 +9,16 @@ import { TextGeometry } from 'three/addons/geometries/TextGeometry.js'
 import { getBaseUrl } from '@/utils/index'
 import Stats from 'three/addons/libs/stats.module.js'
 
-const route = useRoute()
-// const isDebug = computed(() => route.hash === '#debugger')
-const isDebug = computed(() => true)
 const container = ref<HTMLDivElement>()
 const canvas = ref<HTMLCanvasElement>()
 
+const gui = new GUI()
 onMounted(() => {
     init()
+})
+
+onBeforeUnmount(() => {
+    gui.destroy()
 })
 
 function random() {
@@ -24,9 +26,6 @@ function random() {
 }
 
 function init() {
-    // const stats = new Stats()
-    // unref(container)?.appendChild(stats.dom)
-
     const sizes = {
         width: unref(canvas)!.clientWidth,
         height: unref(canvas)!.clientHeight,
@@ -99,6 +98,8 @@ function init() {
     })
     console.timeEnd('donut')
 
+    // const stats = new Stats()
+    // unref(container)?.appendChild(stats.dom)
     renderer.setAnimationLoop(() => {
         const elapsedTime = clock.getElapsedTime()
         donutArr.forEach((v, i) => {
@@ -112,9 +113,7 @@ function init() {
         renderer.render(scene, camera)
     })
 
-    if (isDebug.value) {
-        const gui = new GUI()
-
+    {
         const configObject = {
             radius: donutGeometry.parameters.radius,
             tube: donutGeometry.parameters.tube,
