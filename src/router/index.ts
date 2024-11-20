@@ -13,6 +13,11 @@ const router = createRouter({
             name: 'dog',
             component: () => import('@/views/Dog.vue'),
         },
+        {
+            path: '/2048',
+            name: '2048',
+            component: () => import('@/views/2048.vue'),
+        },
     ],
 })
 
