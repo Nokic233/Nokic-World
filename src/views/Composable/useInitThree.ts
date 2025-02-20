@@ -59,7 +59,7 @@ export default function useInitThree() {
         scene.add((master.value = gltf.scene))
 
         gltf.scene.traverse(child => {
-            if (child.isMesh) {
+            if ((child as any).isMesh) {
                 child.castShadow = true // 启用投射阴影
                 child.receiveShadow = true // 启用接收阴影
             }
