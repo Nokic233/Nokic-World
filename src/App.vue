@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
+import TopMenu from './views/TopMenu.vue'
 </script>
 
 <template>
-  <RouterView />
+    <TopMenu></TopMenu>
+    <RouterView />
 </template>
 
-<style scoped></style>
+<style lang="scss"></style>

@@ -5,14 +5,38 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import useInitThree from './Composable/useInitThree'
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 
 const sceneContainer = ref<HTMLDivElement | null>(null)
 
-const { scene, camera, renderer, master, speed, movement } = useInitThree()
+const { scene, camera, renderer, light, master, speed, movement } =
+    useInitThree()
 
 onMounted(() => {
     sceneContainer.value!.appendChild(renderer.domElement)
-    animate()
+    const controls = new OrbitControls(camera, renderer.domElement)
+    controls.enableDamping = true
+
+    // animate()
+
+    renderer.setAnimationLoop(() => {
+        if (master.value) {
+            if (movement.left) master.value.position.x -= speed
+            if (movement.right) master.value.position.x += speed
+            if (movement.up) master.value.position.z -= speed
+            if (movement.down) master.value.position.z += speed
+        }
+
+        controls.update()
+        light.shadow.camera.updateProjectionMatrix()
+        light.shadow.camera.left = -5
+        light.shadow.camera.right = 5
+        light.shadow.camera.top = 5
+        light.shadow.camera.bottom = -5
+        light.shadow.camera.near = 0.5
+        light.shadow.camera.far = 50
+        renderer.render(scene, camera)
+    })
 
     // 监听按键事件
     window.addEventListener('keydown', onKeyDown)
@@ -24,20 +48,6 @@ onUnmounted(() => {
     window.removeEventListener('keydown', onKeyDown)
     window.removeEventListener('keyup', onKeyUp)
 })
-
-const animate = () => {
-    requestAnimationFrame(animate)
-
-    if (master.value) {
-        if (movement.left) master.value.position.x -= speed
-        if (movement.right) master.value.position.x += speed
-        if (movement.up) master.value.position.z -= speed
-        if (movement.down) master.value.position.z += speed
-    }
-
-    // 渲染场景
-    renderer.render(scene, camera)
-}
 
 const onKeyDown = (event: KeyboardEvent) => {
     switch (event.key) {

@@ -6,12 +6,17 @@ const router = createRouter({
         {
             path: '/',
             name: 'welcome',
-            component: () => import('@/views/Text.vue'),
+            component: () => import('@/views/Welcome.vue'),
         },
         {
-            path: '/dog',
-            name: 'dog',
-            component: () => import('@/views/HomeView.vue'),
+            path: '/girl',
+            name: 'girl',
+            component: () => import('@/views/Girl.vue'),
+        },
+        {
+            path: '/2048',
+            name: '2048',
+            component: () => import('@/views/2048.vue'),
         },
     ],
 })
