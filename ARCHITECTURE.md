@@ -26,45 +26,48 @@ src/
 └── main.ts          # 应用入口文件
 ```
 
-## 4. 架构图
+## 4. 架构示意图
 
-### 组件与路由架构
-```mermaid
-graph TD
-    App[App.vue] --> RouterView
-    
-    subgraph 路由系统
-        RouterView -->|/| Text[Text.vue]
-        RouterView -->|/dog| Home[HomeView.vue]
-    end
+为确保在所有平台都能正常查看，以下使用文本形式展示架构。
 
-    Text --> ThreeScene1[Three.js 场景<br/>(文字 + 甜甜圈)]
-    Home --> UseInitThree[Composable: useInitThree]
-    UseInitThree --> ThreeScene2[Three.js 场景<br/>(柴犬模型)]
+### 组件与路由结构
+```text
+App.vue
+ └── RouterView
+      │
+      ├── 路由: / (首页)
+      │    └── Text.vue
+      │         └── Three.js 场景 (文字 + 甜甜圈动画)
+      │
+      └── 路由: /dog (小狗页面)
+           └── HomeView.vue
+                │
+                └── Composable: useInitThree
+                     ├── 初始化 Three.js 环境 (Scene, Camera, Renderer)
+                     └── 加载 GLTF 模型 (柴犬)
 ```
 
-### 数据流与逻辑
-```mermaid
-classDiagram
-    class HomeView {
-        +HTMLElement sceneContainer
-        +init()
-        +animate()
-        +handleInput()
-    }
-    
-    class UseInitThree {
-        +Scene scene
-        +Camera camera
-        +Renderer renderer
-        +Object3D master
-        +Object movement
-    }
-
-    HomeView --> UseInitThree : 使用
-    HomeView ..> Window : 监听键盘事件
-    UseInitThree ..> ThreeJS : 初始化
-    UseInitThree ..> GLTFLoader : 加载资源
+### 数据流与逻辑关系
+```text
+[HomeView.vue]
+  │
+  ├── 状态管理
+  │    └── sceneContainer (挂载点引用)
+  │
+  ├── 生命周期 & 交互
+  │    ├── onMounted: 挂载渲染器，启动动画循环
+  │    ├── animate: 渲染帧循环 (requestAnimationFrame)
+  │    └── EventListeners: 监听 Window 键盘事件 (ArrowKeys)
+  │
+  └── 调用逻辑 (useInitThree)
+       │
+       ├── [useInitThree.ts]
+       │    ├── 初始化: Scene, Camera, Renderer, Light, GridHelper
+       │    ├── 资源加载: GLTFLoader -> 加载 'shiba/scene.gltf'
+       │    ├── 状态导出: 
+       │    │    ├── master (模型实例)
+       │    │    └── movement (移动方向状态)
+       │    └── 返回上下文对象给 HomeView
 ```
 
 ## 5. 关键模块
